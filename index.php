@@ -4,10 +4,12 @@
 </head>
 <body>
     <h1>Experiment</h1>
+
     <form method="POST" action="run.php">
         Nickname: <input type="text" name="nickname"/>
-        ID: <input type="text" name="id" />
+        ID: <input type="text" name="counter" />
         <input type="submit" />
     </form>
+
 </body>
 </html>
