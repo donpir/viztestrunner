@@ -1,0 +1,63 @@
+<experiment>
+    <testrunner>
+        <execution randomise="counter">
+            <execute index="0" task="taskTemplate1" image="viz1.png"></execute>
+            <execute index="1" task="taskTemplate1" image="viz2.png"></execute>
+            <execute index="2" task="taskTemplate1" image="viz3.png"></execute>
+        </execution>
+    </testrunner>
+    <task id="taskTemplate1">
+        <subtask>
+            <question>Quante canzoni ci sono?</question>
+            <answer type="option">
+                <option label="1"></option>
+                <option label="3"></option>
+                <option label="5"></option>
+                <option label="7"></option>
+                <option label="10"></option>
+                <option type="other" label="other"></option>
+            </answer>
+        </subtask>
+        <subtask>
+            <question>Quante canzoni sono in plagio?</question>
+            <answer type="option">
+                <option label="1"></option>
+                <option label="3"></option>
+                <option label="5"></option>
+                <option label="7"></option>
+                <option label="10"></option>
+                <option type="other" label="other"></option>
+            </answer>
+        </subtask>
+        <subtask>
+            <question>Con quale brano risulta in plagio "X"?</question>
+            <answer type="option">
+                <option label="brano 1"></option>
+                <option label="brano 2"></option>
+                <option label="brano 3"></option>
+                <option label="brano 4"></option>
+                <option label="brano 5"></option>
+                <option label="Nessun plagio"></option>
+            </answer>
+        </subtask>
+        <subtask>
+            <question>Con quale brano risulta in plagio "Y"?</question>
+            <answer type="option">
+                <option label="brano 1"></option>
+                <option label="brano 2"></option>
+                <option label="brano 3"></option>
+                <option label="brano 4"></option>
+                <option label="brano 5"></option>
+                <option label="Nessun plagio"></option>
+            </answer>
+        </subtask>
+    </task>
+    <task id="taskTemplate2">
+        <subtask>
+            <question>Quanto sembrano simili i due brani indicati?</question>
+            <image src=""></image>
+            <answer type="range" valueFrom="1" valueTo="10" labelFrom="Per niente simili" labelTo="Molto simili"></answer>
+        </subtask>
+    </task>
+
+</experiment>
