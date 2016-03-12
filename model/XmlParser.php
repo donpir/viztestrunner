@@ -1,9 +1,10 @@
 <?php
 
 function parse($xml) {
+
     $executor = new Executor();
-    $arrExecution = $xml->testrunner->execution->execute;
-    foreach ($arrExecution as $i => $itemExecution) {
+    $execution = $xml->testrunner->execution;
+    foreach ($execution->execute as $i => $itemExecution) {//Loop through Executions.
         $tempId = (string) $itemExecution->attributes()["template"];
         $tasks = findAndParseTemplate($xml, $itemExecution, $tempId);
         if ($tasks != null)
@@ -15,23 +16,37 @@ function parse($xml) {
 
 function findAndParseTemplate($xml, $execution, $templateId) {
     $execAttrs = $execution->attributes();
+    $templates = $xml->templates;
 
-    $template = $xml->templates->template; //TODO: Change this.
-    $templateAttrs = $template->attributes();
+    foreach ($templates->template as $key => $template) {//Loop through templates.
+        $templateAttrs = $template->attributes();
 
-    if (strcmp($templateAttrs["id"], $templateId) == 0) {
-        $tasks = [];
-        $tempTasks = $template->task;
-        foreach ($tempTasks as $i => $tempTask) {//Loop through TASKS.
-            $task = new Task();
-            $task->imageUrl = (string) $execAttrs["image"];
-            $task->question = $tempTask->question->asXml();
-            $task->answerType = (string) $tempTask->answer->attributes()["type"];
-            $task->answerOptions = parseAnswerOptions($tempTask);
-            array_push($tasks, $task);
-        }
-        return $tasks;
-    }
+//        print_r($templateAttrs["id"] . " #  " . $templateId . " # ");
+//        print_r(strcmp($templateAttrs["id"], $templateId));
+//        echo "<BR>";
+//        echo "<BR>";
+
+        $test = strcmp($templateAttrs["id"], $templateId);
+        if ($test == 0) {
+            $tasks = [];
+
+            foreach ($template->task as $i => $tempTask) {//Loop through TASKS.
+                $task = new Task();
+                $task->imageUrl = (string) $execAttrs["image"];
+                $task->question = $tempTask->question->asXml();
+                $task->answerType = (string) $tempTask->answer->attributes()["type"];
+                $task->answerOptions = parseAnswerOptions($tempTask);
+
+                $task->valueFrom = (string) $tempTask->answer->attributes()["valueFrom"];
+                $task->valueTo = (string) $tempTask->answer->attributes()["valueTo"];
+                $task->labelFrom = (string) $tempTask->answer->attributes()["labelFrom"];
+                $task->labelTo = (string) $tempTask->answer->attributes()["labelTo"];
+
+                array_push($tasks, $task);
+            }
+            return $tasks;
+        }//EndIf.
+    }//EndFor.
 
     return null;
 }//EndFunction.

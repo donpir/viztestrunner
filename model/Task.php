@@ -8,6 +8,12 @@ class Task {
     var $answerType;
     var $answerOptions = [];
 
+    //ONLY FOR RANGE answer.
+    var $valueFrom;
+    var $valueTo;
+    var $labelFrom;
+    var $labelTo;
+
 }
 
 ?>

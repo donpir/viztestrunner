@@ -2,8 +2,8 @@
 
 require '../vendor/autoload.php';
 require_once '../model/Executor.php';
-require '../model/Task.php';
-require '../model/AnswerOption.php';
+require_once '../model/Task.php';
+require_once '../model/AnswerOption.php';
 require_once '../model/XmlParser.php';
 
 $app = new Slim\App();
@@ -16,7 +16,7 @@ $app->get('/hello[/{name}]', function ($request, $response, $args) {
     return $response;
 })->setArgument('name', 'World!');
 
-$app->get('/loadnext/{id}', function ($request, $response, $arg) {
+$app->get('/loadnext/{index}', function ($request, $response, $arg) {
 
     $xml = simplexml_load_file('../experiment/experiment.xml');
 

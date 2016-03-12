@@ -9,4 +9,4 @@ $xml = simplexml_load_file('../experiment/experiment.xml');
 
 $result = parse($xml);
 
-var_dump($result);
+//var_dump($result);
