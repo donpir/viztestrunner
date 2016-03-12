@@ -1,0 +1,25 @@
+{
+  "name": "viztestrunner",
+  "version": "v0.0.1",
+  "homepage": "https://github.com/donpir/viztestrunner",
+  "authors": [
+    "'Donato Pirozzi <'donatopirozzi@gmail.com'>"
+  ],
+  "description": "Tool to perform usability studies of visualizations involving end-users",
+  "license": "GPL",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "tests"
+  ],
+  "devDependencies": {
+    "polymer": "Polymer/polymer#^1.2.0"
+  },
+  "private": true,
+  "dependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#~1.1.5",
+    "paper-radio-button": "PolymerElements/paper-radio-button#~1.1.1",
+    "paper-radio-group": "PolymerElements/paper-radio-group#~1.0.9"
+  }
+}

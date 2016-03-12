@@ -16,13 +16,17 @@ $app->get('/hello[/{name}]', function ($request, $response, $args) {
     return $response;
 })->setArgument('name', 'World!');
 
-$app->get('/loadnext/{index}', function ($request, $response, $arg) {
+$app->get('/loadnext/{index}', function ($request, $response, $args) {
 
     $xml = simplexml_load_file('../experiment/experiment.xml');
 
     $result = parse($xml);
 
-    $response->write( var_dump($result) );
+    $index = intval( $args['index'] );
+    $toJson = new JsonResponse($result->tasks[$index], $index < count($result->tasks) - 1);
+
+    header("Content-Type: application/json");
+    $response->write( json_encode($toJson) );
     return $response;
 });
 

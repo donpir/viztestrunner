@@ -6,6 +6,9 @@ class Task {
     var $question;
 
     var $answerType;
+    //var $isAnswerTypeOption;
+    //var $isAnswerTypeRange;
+
     var $answerOptions = [];
 
     //ONLY FOR RANGE answer.
@@ -13,6 +16,7 @@ class Task {
     var $valueTo;
     var $labelFrom;
     var $labelTo;
+
 
 }
 

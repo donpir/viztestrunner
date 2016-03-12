@@ -21,11 +21,6 @@ function findAndParseTemplate($xml, $execution, $templateId) {
     foreach ($templates->template as $key => $template) {//Loop through templates.
         $templateAttrs = $template->attributes();
 
-//        print_r($templateAttrs["id"] . " #  " . $templateId . " # ");
-//        print_r(strcmp($templateAttrs["id"], $templateId));
-//        echo "<BR>";
-//        echo "<BR>";
-
         $test = strcmp($templateAttrs["id"], $templateId);
         if ($test == 0) {
             $tasks = [];
@@ -33,7 +28,7 @@ function findAndParseTemplate($xml, $execution, $templateId) {
             foreach ($template->task as $i => $tempTask) {//Loop through TASKS.
                 $task = new Task();
                 $task->imageUrl = (string) $execAttrs["image"];
-                $task->question = $tempTask->question->asXml();
+                $task->question = (string) $tempTask->question;
                 $task->answerType = (string) $tempTask->answer->attributes()["type"];
                 $task->answerOptions = parseAnswerOptions($tempTask);
 
