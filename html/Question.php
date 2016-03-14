@@ -18,6 +18,8 @@
     <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
     <link rel="import" href="../bower_components/paper-toast/paper-toast.html">
 
+    <link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+
     <link rel="import" href="question-wc.html">
 
 </head>
@@ -29,6 +31,14 @@
         }
         .flexchild {
         @apply(--layout-flex);
+        }
+
+        paper-dialog.colored {
+            border: 2px solid;
+            border-color: var(--paper-grey-500);
+            background-color: var(--paper-light-grey-50);
+            color: var(--paper-black-500);
+
         }
     </style>
 
@@ -46,6 +56,12 @@
     </div>
 
     <paper-toast text="Hello world!"></paper-toast>
+
+    <paper-dialog id="colors" class="colored" modal>
+        <h2>Question completed</h2>
+        <p>Please take your time. Click on next button to answer the next question.</p>
+        <p><input type="button" value="Next" id="btnNext" onclick="btnNext()" /></p>
+    </paper-dialog>
 
     <script type="text/javascript">
         var qidx = 0;
@@ -65,9 +81,16 @@
                 return;
             }
 
+            var dialog = document.querySelector('paper-dialog');
+            dialog.open();
+        };//EndFunction.
+
+        function btnNext() {
             qidx++;
             startLoading();
-            console.log("conferma");
+
+            var dialog = document.querySelector('paper-dialog');
+            dialog.close();
         };//EndFunction.
 
         var httpGetAsync = function(theUrl, callback) {
