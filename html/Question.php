@@ -43,9 +43,14 @@
         };//EndFunction.
 
         function loadNext(response) {
-            var jsonQuestion = JSON.parse(response);
+            var jsonResponse = JSON.parse(response);
+            if (response.success == false) {
+                alert("Error.");
+                return;
+            }
+
             var questionwc = document.getElementById("questionwc");
-            questionwc.question = jsonQuestion;
+            questionwc.question = jsonResponse.data;
         };
     </script>
 

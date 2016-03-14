@@ -3,9 +3,8 @@
 class JsonResponse {
 
     function __construct($data) {
-        this.$data = $data;
-        if ($data != null)
-            this.$success = true;
+        $this->data = $data;
+        $this->success = ($data != null);
     }//EndFunction.
 
     var $success = false;

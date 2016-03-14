@@ -5,6 +5,7 @@ require_once '../model/Executor.php';
 require_once '../model/Task.php';
 require_once '../model/AnswerOption.php';
 require_once '../model/XmlParser.php';
+require_once '../model/JsonResponse.php';
 
 $app = new Slim\App();
 
@@ -23,7 +24,8 @@ $app->get('/loadnext/{index}', function ($request, $response, $args) {
     $result = parse($xml);
 
     $index = intval( $args['index'] );
-    $toJson = new JsonResponse($result->tasks[$index], $index < count($result->tasks) - 1);
+    $toJson = new JsonResponse($result->tasks[$index]);
+    $toJson->hasNext = $index < count($result->tasks) - 1;
 
     header("Content-Type: application/json");
     $response->write( json_encode($toJson) );
