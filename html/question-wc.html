@@ -7,7 +7,14 @@
 
 <dom-module is="question-wc">
     <template>
-        <div>{{question.question}}</div>
+        <style>
+            :host ::content .question {
+                font-style: italic;
+                font-size: 1.5em;
+            }
+        </style>
+
+        <div class="question">{{question.question}}</div>
         <template is="dom-if" if="{{isAnswerType(question.answerType,'option')}}">
             <paper-radio-group>
                 <template is="dom-repeat" items="{{question.answerOptions}}">

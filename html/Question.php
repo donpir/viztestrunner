@@ -1,3 +1,12 @@
+<?php
+    require_once '../helper/SessionHelper.php';
+    require_once '../helper/SessionData.php';
+    session_start();
+
+    $sessiondata = (new SessionHelper())->getInstance();
+?>
+
+
 <html>
 <head>
     <title>Question</title>
@@ -23,11 +32,16 @@
     </style>
 
     <div class="container flex-horizontal">
-        <div style="border: 1px solid;"><image id="imgVisualization" src=""></image></div>
+        <div style="border: 1px solid;">
+            <image id="imgVisualization" src=""></image><br/>
+        </div>
         <div style="margin-left: 6px;" class="flexchild">
             <question-wc id="questionwc"></question-wc><br/>
             <input type="button" value="Confirm" id="btnConfirm" onclick="btnConfirmClick()" />
         </div>
+    </div>
+    <div style="font-size: .8em;">
+    Nickname: <?php echo $sessiondata->nickname ?> (id <?php echo $sessiondata->id ?>)
     </div>
 
     <script type="text/javascript">
@@ -60,7 +74,7 @@
 
         function loadNext(response) {
             var jsonResponse = JSON.parse(response);
-            if (response.success == false) {
+            if (jsonResponse.success == false) {
                 alert("Error.");
                 return;
             }

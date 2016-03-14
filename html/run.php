@@ -1,10 +1,10 @@
-<html>
-<head>
-    <title>TestRunner</title>
-</head>
-<body>
-<h1>Benvenuto</h1>
 <?php
+    // Start the session
+    session_start();
+?>
+
+<?php
+
 
     $keyNickname = 'nickname';
     $keyExpCounter = 'counter';
@@ -32,7 +32,10 @@
     }
 
     //Parameters are ok!!!
+    $session = new SessionHelper();
+    $session->clean();
+    $session->getInstance()->nickname = $nickname;
+    $session->getInstance()->id = $expcounter;
 
-?>
-</body>
-</html>
+    header('Location: Question.php');
+    die();
