@@ -42,7 +42,7 @@
         }
     </style>
 
-    <div class="container flex-horizontal">
+    <div id="container" class="container flex-horizontal">
         <div style="border: 1px solid;">
             <image id="imgVisualization" src=""></image><br/>
         </div>
@@ -59,7 +59,7 @@
 
     <paper-dialog id="colors" class="colored" modal>
         <h2>Question completed</h2>
-        <p>Please take your time. Click on next button to answer the next question.</p>
+        <p>Please, <?php echo $sessiondata->nickname ?> take your time. Click on next button to answer the next question.</p>
         <p><input type="button" value="Next" id="btnNext" onclick="btnNext()" /></p>
     </paper-dialog>
 
@@ -81,6 +81,9 @@
                 return;
             }
 
+            var container = document.getElementById("container");
+            container.style.display = "none";
+
             var dialog = document.querySelector('paper-dialog');
             dialog.open();
         };//EndFunction.
@@ -88,6 +91,9 @@
         function btnNext() {
             qidx++;
             startLoading();
+
+            var container = document.getElementById("container");
+            container.style.display = "flex";
 
             var dialog = document.querySelector('paper-dialog');
             dialog.close();

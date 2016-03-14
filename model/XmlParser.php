@@ -8,8 +8,10 @@ function parse($xml) {
         $tempId = (string) $itemExecution->attributes()["template"];
         $tasks = findAndParseTemplate($xml, $itemExecution, $tempId);
         if ($tasks != null)
-            foreach ($tasks as $i => $task)
-                array_push($executor->tasks, $task);
+            foreach ($tasks as $i => $task) {
+                $numofitems = array_push($executor->tasks, $task);
+                $task->index = $numofitems;
+            }//EndForEach.
     }
     return $executor;
 }//EndFunction.
