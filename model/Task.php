@@ -2,6 +2,7 @@
 
 class Task {
 
+    var $index = 0;
     var $imageUrl;
     var $question;
 

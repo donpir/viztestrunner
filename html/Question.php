@@ -16,6 +16,7 @@
     <script type="text/javascript" src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
 
     <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+    <link rel="import" href="../bower_components/paper-toast/paper-toast.html">
 
     <link rel="import" href="question-wc.html">
 
@@ -44,10 +45,26 @@
     Nickname: <?php echo $sessiondata->nickname ?> (id <?php echo $sessiondata->id ?>)
     </div>
 
+    <paper-toast text="Hello world!"></paper-toast>
+
     <script type="text/javascript">
         var qidx = 0;
 
         function btnConfirmClick() {
+            //var scope = Polymer.dom(document.querySelector('question-wc'));
+            //scope = Polymer.dom(this.$).querySelector('question-wc');
+            //var domQuestionwc = document.getElementById("questionwc");
+
+            var questionwc = document.querySelector('question-wc');
+            var isValid = questionwc.hasValidInput();
+            if (isValid == false) {
+
+                var toast = document.querySelector('paper-toast');
+                toast.text = "Provide an answer.";
+                toast.show()
+                return;
+            }
+
             qidx++;
             startLoading();
             console.log("conferma");
@@ -79,7 +96,8 @@
                 return;
             }
 
-            var questionwc = document.getElementById("questionwc");
+            var questionwc = document.querySelector('question-wc');
+            //var questionwc = document.getElementById("questionwc");
             questionwc.question = jsonResponse.data;
 
             var imagewc = document.getElementById("imgVisualization");

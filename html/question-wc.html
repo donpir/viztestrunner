@@ -12,9 +12,15 @@
                 font-style: italic;
                 font-size: 1.5em;
             }
+
+            :host ::content .questionIndex {
+                font-style: italic;
+                font-size: 1.5em;
+                font-weight: bold;
+            }
         </style>
 
-        <div class="question">{{question.question}}</div>
+        <div><span class="questionIndex">{{question.index}})</span><span class="question">{{question.question}}</span></div>
         <template is="dom-if" if="{{isAnswerType(question.answerType,'option')}}">
             <paper-radio-group>
                 <template is="dom-repeat" items="{{question.answerOptions}}">
@@ -40,12 +46,26 @@
             is: "question-wc",
             properties: {
                 question: { type: Object, value: undefined, notify: true }
-            },
+            },//EndProperties.
+
+            hasValidInput: function() {
+                var answerType = this.question.answerType;
+                if (this.isAnswerType(answerType, 'option') || this.isAnswerType(answerType, 'range')) {
+
+                    var checked = this.question.answerOptions.filter(function(item) {
+                        return item.checked;
+                    });
+
+                    return checked.length > 0;
+                }
+
+                return false;
+            },//EndFunction.
 
             isAnswerType: function(answerType, checkType) {
                 var bshow = answerType == checkType; //typeof this.$.question != 'undefined' && this.$.question.answerType == 'option';
                 return bshow;
-            }
+            }//EndFunction.
         });
     </script>
 </dom-module>
