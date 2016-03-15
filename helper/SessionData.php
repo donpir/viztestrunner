@@ -6,6 +6,9 @@ class SessionData {
     var $id;
     var $tasks = [];
 
+    var $indexLastQuestion = null;
+    var $timeLastRequest = null;
+
     function buildCSVRow() {
         $csv = 'nickname;' . 'id;';
 

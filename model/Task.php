@@ -19,6 +19,10 @@ class Task {
     var $labelTo;
 
 
+    var $responseTime = null;
+    var $responseValue = null;
+    var $responseOther = null;
+
 }
 
 ?>

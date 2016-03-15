@@ -11,16 +11,16 @@
             <task>
                 <question>Quante canzoni ci sono nella visualizzazione?</question>
                 <answer type="option">
-                    <option label="4"></option>
-                    <option label="8"></option>
-                    <option label="16"></option>
+                    <option label="1"></option>
+                    <option label="5"></option>
+                    <option label="10"></option>
+                    <option label="15"></option>
                     <option label="20"></option>
-                    <option label="25"></option>
                     <option type="other" label="other"></option>
                 </answer>
             </task>
             <task>
-                <question>Secondo te, quante situazioni di plagio esistono nella visualizzazione?</question>
+                <question>Secondo te, quante situazioni di plagio esistono nella visualizzazione data?</question>
                 <answer type="option">
                     <option label="1"></option>
                     <option label="3"></option>
@@ -31,7 +31,7 @@
                 </answer>
             </task>
             <task>
-                <question>Secondo te, con quale brano risulta maggiormente in plagio il brano "Il Postino"?</question>
+                <question>Secondo te, con quale brano risulta in plagio il brano "Il Postino"?</question>
                 <answer type="option">
                     <option label="If I could fly"></option>
                     <option label="Will you be there"></option>
@@ -41,31 +41,24 @@
                 </answer>
             </task>
             <task>
-                <question>Secondo te, quale dei brani visualizzati non e' un plagio?</question>
+                <question>Secondo te, con quale brano risulta in plagio il brano "Billie Jean"?</question>
                 <answer type="option">
-                    <option label="Billie Jean"></option>
-                    <option label="Somebody to Love"></option>
-                    <option label="I Gotta Feeling"></option>
+                    <option label="If I could fly"></option>
+                    <option label="Will you be there"></option>
+                    <option label="He's so fine"></option>
                     <option label="Nelle mie notti"></option>
                     <option label="Nessun brano"></option>
                 </answer>
             </task>
             <task>
-            	<question>Dati i brani "Il Postino" e "I cigni di balaka", quanto sembrano simili i due brani?</question>
-            	<answer type="range" valueFrom="1" valueTo="10" labelFrom="Per niente simili" labelTo="Molto simili"></answer>
+                <question>Dati i brani "Will you be there" e "I cigni di balaka", quanto sembrano simili i due brani?</question>
+                <answer type="range" valueFrom="1" valueTo="5" labelFrom="Per niente simili" labelTo="Molto simili"></answer>
             </task>
             <task>
-            	<question>Dati i brani "Il Postino" e "Nelle mie notti", quanto sembrano simili i due brani?</question>
-            	<answer type="range" valueFrom="1" valueTo="10" labelFrom="Per niente simili" labelTo="Molto simili"></answer>
-            </task>
-            <task>
-            	<question>Dati i brani "Non ho l'eta' per amarti" e "Please don't stop loving me", quanto sembrano simili i due brani?</question>
-            	<answer type="range" valueFrom="1" valueTo="10" labelFrom="Per niente simili" labelTo="Molto simili"></answer>
-            </task>
-            <task>
-            	<question>Dati i brani "Love is a Wonderful Thing" e "Please don't stop loving me", quanto sembrano simili i due brani?</question>
-            	<answer type="range" valueFrom="1" valueTo="10" labelFrom="Per niente simili" labelTo="Molto simili"></answer>
+                <question>Dati i brani "Will you be there" e "Il postino", quanto sembrano simili i due brani?</question>
+                <answer type="range" valueFrom="1" valueTo="5" labelFrom="Per niente simili" labelTo="Molto simili"></answer>
             </task>
         </template>
     </templates>
+
 </experiment>
