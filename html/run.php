@@ -1,6 +1,5 @@
 <?php
     // Start the session
-    session_start();
     require_once '../helper/SessionHelper.php';
 ?>
 
@@ -33,10 +32,10 @@
     }
 
     //Parameters are ok!!!
-    $session = new SessionHelper();
-    $session->clean();
-    $session->getInstance()->nickname = $nickname;
-    $session->getInstance()->id = $expcounter;
+    SessionHelper::clean();
+    $sessiondata = SessionHelper::getInstance();
+    $sessiondata->nickname = $nickname;
+    $sessiondata->id = $expcounter;
 
     header('Location: Question.php');
     die();

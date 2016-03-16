@@ -1,20 +1,23 @@
 <?php
 
 require_once 'SessionData.php';
+require_once '../model/Task.php';
+session_start();
 
 class SessionHelper {
 
-    var $SESSIONKEY = 'USER_DATA';
+    public static $SESSIONKEY = 'USER_DATA';
 
-    function clean() {
-        $_SESSION[$this->SESSIONKEY] = null;
+    static function clean() {
+        unset($_SESSION[self::$SESSIONKEY]);
     }
 
-    function getInstance() {
-        $session =  $_SESSION[$this->SESSIONKEY];
-        if ($session == null) {
+    static function getInstance() {
+        if (isset($_SESSION[self::$SESSIONKEY])) {
+            $session = $_SESSION[self::$SESSIONKEY];
+        } else {
             $session = new SessionData();
-            $_SESSION[$this->SESSIONKEY] = $session;
+            $_SESSION[self::$SESSIONKEY] = $session;
         }
 
         return $session;

@@ -1,9 +1,8 @@
 <?php
     require_once '../helper/SessionHelper.php';
     require_once '../helper/SessionData.php';
-    session_start();
 
-    $sessiondata = (new SessionHelper())->getInstance();
+    $sessiondata = SessionHelper::getInstance();
 ?>
 
 
@@ -74,7 +73,6 @@
             var questionwc = document.querySelector('question-wc');
             var isValid = questionwc.hasValidInput();
             if (isValid == false) {
-
                 var toast = document.querySelector('paper-toast');
                 toast.text = "Provide an answer.";
                 toast.show()
@@ -84,8 +82,22 @@
             var container = document.getElementById("container");
             container.style.display = "none";
 
-            var dialog = document.querySelector('paper-dialog');
-            dialog.open();
+            //Post the response to the server.
+            var http = new XMLHttpRequest();
+            var url = "/viztestrunner/restservices/save";
+            var params = { question: { index: questionwc.question.index + "", response: "1" } };
+            var strParams = JSON.stringify(params);
+            http.open("POST", url, true);
+            http.setRequestHeader("Content-Type", "application/json");
+            http.onreadystatechange = function() {//Call a function when the state changes.
+                if(http.readyState == 4 && http.status == 200) {
+                    alert(http.responseText);
+                    //TODO: to check the response.
+                    var dialog = document.querySelector('paper-dialog');
+                    dialog.open();
+                }
+            }
+            http.send(strParams);
         };//EndFunction.
 
         function btnNext() {
