@@ -41,8 +41,6 @@ $app->post('/save', function($request, $response, $args) {
     if ($sessiondata->indexLastQuestion === null)
         $jsonResponse->fail("Cannot determine the index of the last question");
 
-    //print_r();
-
     if ($jsonResponse->success) {
         $pIndex = $jsonBody["question"]["index"];
         $pResponse = $jsonBody["question"]["response"];
@@ -52,7 +50,7 @@ $app->post('/save', function($request, $response, $args) {
         if ($task == null) {
             $jsonResponse->fail("Cannot retrieve the task object of the last selected question (index " + $pIndex + ").");
         } else {
-            $task->responseTime = $sessiondata->timeLastRequest - microtime(true);
+            $task->responseTime = microtime(true) - $sessiondata->timeLastRequest;
             $task->responseValue = $pResponse;
             $task->responseOther = $pOther;//property_exists($jsonBody.question, "other") ? $jsonBody.question.other : null;
 
@@ -63,16 +61,16 @@ $app->post('/save', function($request, $response, $args) {
                 $writer = new CSVFileWriter('../experiment/log.csv');
 
                 $arr = [];
-                array_push($arr, $sessiondata->nickname . ";");
-                array_push($arr, $sessiondata->id . ";");
-                array_push($arr, $task->index . ";");
-                array_push($arr, $task->imageUrl . ";");
-                array_push($arr, $task->responseTime . ";");
-                array_push($arr, $task->responseValue . ";");
-                array_push($arr, $task->responseOther . ";");
-                array_push($arr, $task->question . ";");
+                array_push($arr, $sessiondata->nickname);
+                array_push($arr, $sessiondata->id);
+                array_push($arr, $task->index);
+                array_push($arr, $task->imageUrl);
+                array_push($arr, $task->responseTime);
+                array_push($arr, $task->responseValue);
+                array_push($arr, $task->responseOther);
+                array_push($arr, $task->question);
 
-                $bwrote = $writer->write(null);
+                $bwrote = $writer->write($arr);
                 if ($bwrote === FALSE) {
                     $jsonResponse->fail(error_get_last()['message']);
                 }

@@ -15,8 +15,12 @@ class CSVFileWriter {
     }//EndConstructor.
 
     function write($arr) {
-        $current = "ciccio";
-        return file_put_contents($this->filename, $current, FILE_APPEND);
+        $content = "";
+        foreach ($arr as $value)
+            $content .= $value . ";";
+        $content .= "\n";
+
+        return file_put_contents($this->filename, $content, FILE_APPEND);
     }//EndFunction.
 
 }//EndClass.

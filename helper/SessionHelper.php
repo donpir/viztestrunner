@@ -25,10 +25,6 @@ class SessionHelper {
         return self::$session;
     }//
 
-    /*static function flush() {
-        $_SESSION[self::$SESSIONKEY] = self::$session;
-    }//EndFunction.*/
-
 }//EndClass.
 
 
