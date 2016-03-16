@@ -91,7 +91,13 @@
             http.setRequestHeader("Content-Type", "application/json");
             http.onreadystatechange = function() {//Call a function when the state changes.
                 if(http.readyState == 4 && http.status == 200) {
-                    alert(http.responseText);
+                    var responseContent = http.responseText;
+                    console.log(responseContent);
+                    var jsonResponse = JSON.parse(responseContent);
+                    if (jsonResponse.success == false) {
+                        alert(responseContent);
+                        return;
+                    }
                     //TODO: to check the response.
                     var dialog = document.querySelector('paper-dialog');
                     dialog.open();

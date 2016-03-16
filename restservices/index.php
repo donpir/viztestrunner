@@ -38,7 +38,7 @@ $app->post('/save', function($request, $response, $args) {
     $sessiondata = SessionHelper::getInstance();
     if ($sessiondata == null)
         $jsonResponse->fail("There is nothing in the Session about this test.");
-    if ($sessiondata->indexLastQuestion == null)
+    if ($sessiondata->indexLastQuestion === null)
         $jsonResponse->fail("Cannot determine the index of the last question");
 
     //print_r();
@@ -49,33 +49,37 @@ $app->post('/save', function($request, $response, $args) {
         $pOther = array_key_exists("other", $jsonBody["question"]) ? $jsonBody["question"]["other"] : null;
 
         $task = $sessiondata->tasks[$pIndex];
-        $task->responseTime = $sessiondata->timeLastRequest - microtime(true);
-        $task->responseValue = $pResponse;
-        $task->responseOther = $pOther;//property_exists($jsonBody.question, "other") ? $jsonBody.question.other : null;
+        if ($task == null) {
+            $jsonResponse->fail("Cannot retrieve the task object of the last selected question (index " + $pIndex + ").");
+        } else {
+            $task->responseTime = $sessiondata->timeLastRequest - microtime(true);
+            $task->responseValue = $pResponse;
+            $task->responseOther = $pOther;//property_exists($jsonBody.question, "other") ? $jsonBody.question.other : null;
 
-        $jsonResponse->hasNext = $pIndex < count($sessiondata->tasks) - 1;
+            $jsonResponse->hasNext = $pIndex < count($sessiondata->tasks) - 1;
 
-        //It writes the data within the csv file.
-        try {
-            $writer = new CSVFileWriter('../experiment/log.csv');
+            //It writes the data within the csv file.
+            try {
+                $writer = new CSVFileWriter('../experiment/log.csv');
 
-            $arr = [];
-            array_push($arr, $sessiondata->nickname . ";");
-            array_push($arr, $sessiondata->id . ";");
-            array_push($arr, $task->$pIndex . ";");
-            array_push($arr, $task->$imageUrl . ";");
-            array_push($arr, $task->responseTime . ";");
-            array_push($arr, $task->responseValue . ";");
-            array_push($arr, $task->responseOther . ";");
-            array_push($arr, $task->question . ";");
+                $arr = [];
+                array_push($arr, $sessiondata->nickname . ";");
+                array_push($arr, $sessiondata->id . ";");
+                array_push($arr, $task->index . ";");
+                array_push($arr, $task->imageUrl . ";");
+                array_push($arr, $task->responseTime . ";");
+                array_push($arr, $task->responseValue . ";");
+                array_push($arr, $task->responseOther . ";");
+                array_push($arr, $task->question . ";");
 
-            $bwrote = $writer->write(null);
-            if ($bwrote === FALSE) {
-                $jsonResponse->fail(error_get_last()['message']);
+                $bwrote = $writer->write(null);
+                if ($bwrote === FALSE) {
+                    $jsonResponse->fail(error_get_last()['message']);
+                }
+
+            } catch (Exception$e) {
+                $jsonResponse->fail($e->getMessage());
             }
-
-        } catch (Exception$e) {
-            $jsonResponse->fail($e->getMessage());
         }
     }
 
@@ -98,8 +102,9 @@ $app->get('/loadnext/{index}', function ($request, $response, $args) {
     $sessiondata = SessionHelper::getInstance();
     $sessiondata->timeLastRequest = microtime(true);
     $sessiondata->indexLastQuestion = $index;
-    if ($sessiondata->tasks == null)
+    if ($sessiondata->tasks == null || count($sessiondata->tasks) == 0)
         $sessiondata->tasks = $result->tasks;
+    //SessionHelper::flush();
 
     header("Content-Type: application/json");
     $response->write( json_encode($toJson) );

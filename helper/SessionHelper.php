@@ -7,21 +7,27 @@ session_start();
 class SessionHelper {
 
     public static $SESSIONKEY = 'USER_DATA';
+    private static $session = null;
 
     static function clean() {
         unset($_SESSION[self::$SESSIONKEY]);
+        self::$session = null;
     }
 
     static function getInstance() {
         if (isset($_SESSION[self::$SESSIONKEY])) {
-            $session = $_SESSION[self::$SESSIONKEY];
+            self::$session = $_SESSION[self::$SESSIONKEY];
         } else {
-            $session = new SessionData();
-            $_SESSION[self::$SESSIONKEY] = $session;
+            self::$session = new SessionData();
+            $_SESSION[self::$SESSIONKEY] = self::$session;
         }
 
-        return $session;
-    }
+        return self::$session;
+    }//
+
+    /*static function flush() {
+        $_SESSION[self::$SESSIONKEY] = self::$session;
+    }//EndFunction.*/
 
 }//EndClass.
 
