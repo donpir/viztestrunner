@@ -100,9 +100,11 @@ $app->get('/loadnext/{index}', function ($request, $response, $args) {
     $sessiondata = SessionHelper::getInstance();
     $sessiondata->timeLastRequest = microtime(true);
     $sessiondata->indexLastQuestion = $index;
-    if ($sessiondata->tasks == null || count($sessiondata->tasks) == 0)
+    if ($sessiondata->tasks == null || count($sessiondata->tasks) == 0) {
         $sessiondata->tasks = $result->tasks;
-    //SessionHelper::flush();
+        //Task randomization based on id.
+
+    }
 
     header("Content-Type: application/json");
     $response->write( json_encode($toJson) );
