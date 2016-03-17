@@ -10,6 +10,7 @@ require_once '../model/JsonResponse.php';
 require_once '../helper/SessionHelper.php';
 require_once '../helper/SessionData.php';
 require_once '../model/Task.php';
+require_once '../helper/Sequencer.php';
 
 
 require_once 'CSVFileWriter.php';
@@ -45,6 +46,9 @@ $app->post('/save', function($request, $response, $args) {
         $pIndex = $jsonBody["question"]["index"];
         $pResponse = $jsonBody["question"]["response"];
         $pOther = array_key_exists("other", $jsonBody["question"]) ? $jsonBody["question"]["other"] : null;
+
+        /*if ($pIndex >= count($sessiondata->tasks))
+            $jsonResponse->fail("Index out of range (index " + $pIndex + ").");*/
 
         $task = $sessiondata->tasks[$pIndex];
         if ($task == null) {
@@ -92,19 +96,19 @@ $app->get('/loadnext/{index}', function ($request, $response, $args) {
 
     $result = parse($xml);
 
-    $index = intval( $args['index'] );
-    $toJson = (new JsonResponse)->success($result->tasks[$index]);
-    $toJson->hasNext = $index < count($result->tasks) - 1;
-
     //Access to session data.
     $sessiondata = SessionHelper::getInstance();
     $sessiondata->timeLastRequest = microtime(true);
-    $sessiondata->indexLastQuestion = $index;
     if ($sessiondata->tasks == null || count($sessiondata->tasks) == 0) {
-        $sessiondata->tasks = $result->tasks;
+        $sessiondata->tasksOriginal = $result->tasks;
         //Task randomization based on id.
-
+        $sessiondata->tasks = Sequencer::nth_permutation($result->tasks, $sessiondata->id, count($result->tasks));
     }
+
+    $index = intval( $args['index'] );
+    $sessiondata->indexLastQuestion = $index;
+    $toJson = (new JsonResponse)->success($sessiondata->tasks[$index]);
+    $toJson->hasNext = $index < count($sessiondata->tasks) - 1;
 
     header("Content-Type: application/json");
     $response->write( json_encode($toJson) );

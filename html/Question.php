@@ -41,6 +41,10 @@
         }
     </style>
 
+    <div id="divCompleted" style="display: none;">
+        <h2>Test Completed! Thank you!</h2>
+    </div>
+
     <div id="container" class="container flex-horizontal">
         <div style="border: 1px solid;">
             <image id="imgVisualization" src=""></image><br/>
@@ -64,6 +68,7 @@
 
     <script type="text/javascript">
         var qidx = 0;
+        var lastJsonResponse = null;
 
         function btnConfirmClick() {
             //var scope = Polymer.dom(document.querySelector('question-wc'));
@@ -75,7 +80,7 @@
             if (isValid == false) {
                 var toast = document.querySelector('paper-toast');
                 toast.text = "Provide an answer.";
-                toast.show()
+                toast.show();
                 return;
             }
 
@@ -85,7 +90,10 @@
             //Post the response to the server.
             var http = new XMLHttpRequest();
             var url = "/viztestrunner/restservices/save";
-            var params = { question: { index: questionwc.question.index + "", response: "1" } };
+
+            var response = questionwc.getResponse();
+
+            var params = { question: { index: qidx + "", response: response.label } };
             var strParams = JSON.stringify(params);
             http.open("POST", url, true);
             http.setRequestHeader("Content-Type", "application/json");
@@ -98,9 +106,17 @@
                         alert(responseContent);
                         return;
                     }
+
+                    if (lastJsonResponse != null && lastJsonResponse.hasNext == false) {
+                        var div = document.getElementById("divCompleted");
+                        div.style.display = "block";
+                        return;
+                    }
+
                     //TODO: to check the response.
                     var dialog = document.querySelector('paper-dialog');
                     dialog.open();
+
                 }
             }
             http.send(strParams);
@@ -138,6 +154,7 @@
 
         function loadNext(response) {
             var jsonResponse = JSON.parse(response);
+            lastJsonResponse = jsonResponse;
             if (jsonResponse.success == false) {
                 alert("Error.");
                 return;

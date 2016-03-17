@@ -5,6 +5,7 @@ class SessionData {
     var $nickname;
     var $id;
     var $tasks = [];
+    var $tasksOriginal = [];
 
     var $indexLastQuestion = null;
     var $timeLastRequest = null;
