@@ -57,6 +57,7 @@ function parseAnswerOptions($taskInstance, $tempTask) {
         for ($i=$taskInstance->valueFrom; $i <=$taskInstance->valueTo; $i++) {
             $ansOpt = new AnswerOption();
             $ansOpt->label = $i . "";
+            $ansOpt->name = "qid" . $tempTask->index . "_" . $ansOpt->label;
             array_push($options, $ansOpt);
         }
 
@@ -66,6 +67,7 @@ function parseAnswerOptions($taskInstance, $tempTask) {
     foreach ($tempTask->answer->option as $j => $tempTaskOption) {
         $option = new AnswerOption();
         $option->label = (string) $tempTaskOption->attributes()["label"];
+        $option->name = "qid" . $tempTask->index . "_" . $option->label;
 
         $attrType = (string) $tempTaskOption->attributes()["type"];
         $option->type = $attrType != null ? $attrType : null;

@@ -24,7 +24,7 @@
         <template is="dom-if" if="{{isAnswerType(question.answerType,'option')}}">
             <paper-radio-group>
                 <template is="dom-repeat" items="{{question.answerOptions}}">
-                    <paper-radio-button checked="{{item.checked}}" name="{{item.label}}">{{item.label}}</paper-radio-button><br/>
+                    <paper-radio-button checked="{{item.checked}}" name="{{computeName(question, item)}}">{{item.label}}</paper-radio-button><br/>
                 </template>
             </paper-radio-group>
         </template>
@@ -33,7 +33,7 @@
             <span>{{question.labelFrom}}</span>
             <paper-radio-group>
                 <template is="dom-repeat" items="{{question.answerOptions}}">
-                    <paper-radio-button checked="{{item.checked}}" name="{{item.label}}">{{item.label}}</paper-radio-button>
+                    <paper-radio-button checked="{{item.checked}}" name="{{computeName(question, item)}}">{{item.label}}</paper-radio-button>
                 </template>
             </paper-radio-group>
             <span></span>
@@ -80,6 +80,10 @@
             isAnswerType: function(answerType, checkType) {
                 var bshow = answerType == checkType; //typeof this.$.question != 'undefined' && this.$.question.answerType == 'option';
                 return bshow;
+            },//EndFunction.
+
+            computeName: function(question, answerOption) {
+                return question.index + "_" + answerOption.label.replace(" ", "");
             }//EndFunction.
         });
     </script>

@@ -102,7 +102,12 @@ $app->get('/loadnext/{index}', function ($request, $response, $args) {
     if ($sessiondata->tasks == null || count($sessiondata->tasks) == 0) {
         $sessiondata->tasksOriginal = $result->tasks;
         //Task randomization based on id.
-        $sessiondata->tasks = Sequencer::nth_permutation($result->tasks, $sessiondata->id, count($result->tasks));
+        //$idx = hexdec(substr(sha1($sessiondata->id . ""), 0, 10));
+
+        $idx = crc32($sessiondata->id . "");
+        if ($idx < 0) $idx = $idx * -1;
+        //$id = $sessiondata->id;
+        $sessiondata->tasks = Sequencer::nth_permutation($result->tasks, $idx , count($result->tasks));
     }
 
     $index = intval( $args['index'] );

@@ -100,7 +100,7 @@
             http.onreadystatechange = function() {//Call a function when the state changes.
                 if(http.readyState == 4 && http.status == 200) {
                     var responseContent = http.responseText;
-                    console.log(responseContent);
+                    //console.log(responseContent);
                     var jsonResponse = JSON.parse(responseContent);
                     if (jsonResponse.success == false) {
                         alert(responseContent);
@@ -162,6 +162,9 @@
 
             var questionwc = document.querySelector('question-wc');
             //var questionwc = document.getElementById("questionwc");
+            /*if (typeof questionwc.question != 'undefined') {
+                questionwc.question.answerOptions = [];
+            }*/
             questionwc.question = jsonResponse.data;
 
             var imagewc = document.getElementById("imgVisualization");
