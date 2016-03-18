@@ -20,7 +20,7 @@
                 </answer>
             </task>
             <task>
-                <question>Secondo te, quante situazioni di plagio esistono nella visualizzazione?</question>
+                <question>Secondo te, quanti casi di plagio sono rappresentati nella visualizzazione?</question>
                 <answer type="option">
                     <option label="1"></option>
                     <option label="3"></option>
@@ -32,7 +32,7 @@
                 </answer>
             </task>
             <task>
-                <question>Secondo te, con quale brano risulta maggiormente in plagio il brano "Il Postino"?</question>
+                <question>Secondo te, a quale brano risulta essere maggiormente simile il brano intitolato "Il Postino"?</question>
                 <answer type="option">
                     <option label="If I could fly"></option>
                     <option label="Will you be there"></option>
